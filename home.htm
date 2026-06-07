@@ -125,6 +125,34 @@ button:hover{
 .copied.show{
     opacity:1;
 }
+.wallet-wrapper{
+    position:relative;
+    display:inline-block;
+    margin-bottom:32px;
+}
+
+.wallet-note{
+    position:absolute;
+    right:-220px;
+    top:8px;
+
+    font-family:"Comic Sans MS","Bradley Hand",cursive;
+    font-size:0.95rem;
+    color:#666;
+
+    transform:rotate(-5deg);
+    white-space:nowrap;
+}
+
+@media(max-width:768px){
+
+    .wallet-note{
+        position:static;
+        transform:none;
+        margin-top:8px;
+    }
+
+}
 
 @keyframes fadeIn{
     from{
@@ -147,6 +175,7 @@ button:hover{
     .qr{
         width:180px;
         height:180px;
+        cursor:pointer;
     }
 
     .wallet{
@@ -172,9 +201,11 @@ button:hover{
     </div>
 
     <img
-        class="qr"
-        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=bitcoin:bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq"
-        alt="Bitcoin Wallet QR"
+    class="qr"
+    onclick="copyWallet()"
+    title="Click to copy wallet address"
+    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=bitcoin:bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq"
+    alt="Bitcoin Wallet QR"
     >
 
     <div class="wallet-container">
@@ -189,6 +220,8 @@ button:hover{
 
     </div>
 
+    <div class="wallet-wrapper">
+
     <a
         href="bitcoin:bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq"
         class="donate-btn"
@@ -196,9 +229,14 @@ button:hover{
         Open Wallet
     </a>
 
+    <div class="wallet-note">
+        ↖ only works if you have a bitcoin wallet app
+    </div>
+
+    </div>
+
     <p class="quote">
-        “If money can't buy happiness,<br>
-        help me buy mine.”
+        "contribute to the most interesting story of the 21st century"
     </p>
 
     <div class="copied" id="copied">
