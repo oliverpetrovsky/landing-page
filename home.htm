@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 
 <style>
 
@@ -56,6 +56,12 @@ h1{
     height:240px;
     border-radius:12px;
     margin-bottom:30px;
+    cursor:pointer;
+    transition:opacity 0.2s;
+}
+
+.qr:hover{
+    opacity:0.85;
 }
 
 .wallet-container{
@@ -64,7 +70,7 @@ h1{
     align-items:center;
     gap:12px;
     flex-wrap:wrap;
-    margin-bottom:16px;
+    margin-bottom:10px;
 }
 
 .wallet{
@@ -87,10 +93,22 @@ button:hover{
     color:white;
 }
 
+.copied{
+    color:#777;
+    font-size:0.9rem;
+    opacity:0;
+    transition:0.3s;
+    min-height:1.4em;
+    margin-bottom:16px;
+}
+
+.copied.show{
+    opacity:1;
+}
+
 .donate-btn{
     display:inline-block;
-    margin-top:12px;
-    margin-bottom:32px;
+    margin-bottom:10px;
     padding:12px 24px;
     border:1px solid #111;
     color:#111;
@@ -103,6 +121,14 @@ button:hover{
     color:white;
 }
 
+.wallet-note{
+    font-family:'Inter',sans-serif;
+    font-style:italic;
+    font-size:0.85rem;
+    color:#999;
+    margin-bottom:36px;
+}
+
 .quote{
     font-size:1.3rem;
     font-style:italic;
@@ -112,46 +138,6 @@ button:hover{
 
 .quote:hover{
     transform:scale(1.02);
-}
-
-.copied{
-    margin-top:10px;
-    color:#777;
-    font-size:0.9rem;
-    opacity:0;
-    transition:0.3s;
-}
-
-.copied.show{
-    opacity:1;
-}
-.wallet-wrapper{
-    position:relative;
-    display:inline-block;
-    margin-bottom:32px;
-}
-
-.wallet-note{
-    position:absolute;
-    right:-220px;
-    top:8px;
-
-    font-family:"Comic Sans MS","Bradley Hand",cursive;
-    font-size:0.95rem;
-    color:#666;
-
-    transform:rotate(-5deg);
-    white-space:nowrap;
-}
-
-@media(max-width:768px){
-
-    .wallet-note{
-        position:static;
-        transform:none;
-        margin-top:8px;
-    }
-
 }
 
 @keyframes fadeIn{
@@ -175,7 +161,6 @@ button:hover{
     .qr{
         width:180px;
         height:180px;
-        cursor:pointer;
     }
 
     .wallet{
@@ -186,6 +171,7 @@ button:hover{
     .quote{
         font-size:1.1rem;
     }
+
 }
 
 </style>
@@ -201,26 +187,19 @@ button:hover{
     </div>
 
     <img
-    class="qr"
-    onclick="copyWallet()"
-    title="Click to copy wallet address"
-    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=bitcoin:bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq"
-    alt="Bitcoin Wallet QR"
+        class="qr"
+        onclick="copyWallet()"
+        title="Click to copy wallet address"
+        src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=bitcoin:bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq"
+        alt="Bitcoin Wallet QR"
     >
 
     <div class="wallet-container">
-
-        <span class="wallet" id="wallet">
-            bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq
-        </span>
-
-        <button onclick="copyWallet()">
-            Copy
-        </button>
-
+        <span class="wallet" id="wallet">bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq</span>
+        <button onclick="copyWallet()">Copy</button>
     </div>
 
-    <div class="wallet-wrapper">
+    <div class="copied" id="copied">Address copied ✓</div>
 
     <a
         href="bitcoin:bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq"
@@ -229,39 +208,38 @@ button:hover{
         Open Wallet
     </a>
 
-    <div class="wallet-note">
-        ↖ only works if you have a bitcoin wallet app
-    </div>
-
-    </div>
+    <div class="wallet-note">↑ only works if you have a bitcoin wallet app</div>
 
     <p class="quote">
         "contribute to the most interesting story of the 21st century"
     </p>
-
-    <div class="copied" id="copied">
-        Address copied ✓
-    </div>
 
 </div>
 
 <script>
 
 function copyWallet() {
+    const address = "bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq";
+    const copied = document.getElementById("copied");
 
-    const address =
-    "bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq";
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(address).then(() => showCopied(copied));
+    } else {
+        const el = document.createElement("textarea");
+        el.value = address;
+        el.style.cssText = "position:absolute;left:-9999px;top:-9999px";
+        document.body.appendChild(el);
+        el.focus();
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        showCopied(copied);
+    }
+}
 
-    navigator.clipboard.writeText(address);
-
-    const copied =
-    document.getElementById("copied");
-
-    copied.classList.add("show");
-
-    setTimeout(() => {
-        copied.classList.remove("show");
-    }, 2000);
+function showCopied(el) {
+    el.classList.add("show");
+    setTimeout(() => el.classList.remove("show"), 2000);
 }
 
 </script>
