@@ -1,53 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Landing Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: #f4f4f9;
-    }
-    .container {
-      text-align: center;
-      background: #fff;
-      border-radius: 10px;
-      padding: 40px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 100%;
-    }
-    h1 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-    p {
-      color: #555;
-      line-height: 1.6;
-    }
-    a.button {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 24px;
-      background: #4a90e2;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oliver Petrovsky</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#fff;
+    color:#111;
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    text-align:center;
+    max-width:700px;
+    padding:48px;
+}
+
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:4rem;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    font-size:1rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:#666;
+    margin-bottom:50px;
+}
+
+.qr{
+    width:220px;
+    height:220px;
+    object-fit:contain;
+    margin-bottom:24px;
+}
+
+.wallet a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.wallet a:hover{
+    text-decoration:underline;
+}
+
+.quote{
+    font-size:1.1rem;
+    color:#222;
+    font-style:italic;
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Test Landing Page</h1>
-    <p>This is a basic HTML page to test the landing page setup.</p>
-    <a class="button" href="#">Get Started</a>
-  </div>
+
+<div class="card">
+
+    <h1>Oliver Petrovsky</h1>
+
+    <div class="subtitle">
+        Founder · The Awesome Company
+    </div>
+
+    <img src="bitcoin-qr.png" alt="Bitcoin Wallet QR" class="qr">
+
+    <div class="wallet">
+      <a href="bitcoin:bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq">
+        bc1qtv0vnrhr6j5nr5jqvztufdhfl7uwpxmlgw6rvq
+     </a>
+    </div>
+
+    <div class="quote">
+        "buy my my happiness using the above ! :)"
+    </div>
+
+</div>
+
 </body>
 </html>
